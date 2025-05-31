@@ -20,11 +20,11 @@ configDotenv(
 const {PORT , APP_URL } = process.env
 const app = express() 
 
-app.use(cors)
-app.use(express.json)
+app.use(cors())
+app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-app.use(morgan)
+app.use(morgan('dev'))
 
 
 app.use('/api/auth' , userRoutes)
@@ -34,17 +34,18 @@ app.use(
     "/api/inngest" , 
     serve(
         {
-            client : inngest , function: [onUserSignup , onTicketCreated]
+            client : inngest , functions: [onUserSignup , onTicketCreated]
         }
     )
 )
+
 
 app.get('/', (req , res )=>{
     res.send("this is the ai ticket saas ")
 })
 
 
-app.listen(PORT || 5000, async ()=>{
+app.listen(3000, async ()=>{
     await connectDB()
     console.log(`server is running on port ${APP_URL}`)
 }) ; 
