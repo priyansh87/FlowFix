@@ -4,6 +4,12 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import cors from 'cors'
 import { connectDB } from './utils/db.js';
+import ticketRoutes from './routes/ticket.route.js'
+import userRoutes from './routes/user.routes.js'
+import { serve } from 'inngest/express'
+import { inngest } from './inngest/client.js';
+import { onUserSignup } from './inngest/functions/onSignup.js'
+import { onTicketCreated } from './inngest/functions/onTicketCreate.js';
 configDotenv(
     {
         path:"./.env"
@@ -19,6 +25,19 @@ app.use(express.json)
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(morgan)
+
+
+app.use('/api/auth' , userRoutes)
+app.use('/api/ticket' , ticketRoutes)
+
+app.use(
+    "/api/inngest" , 
+    serve(
+        {
+            client : inngest , function: [onUserSignup , onTicketCreated]
+        }
+    )
+)
 
 app.get('/', (req , res )=>{
     res.send("this is the ai ticket saas ")
