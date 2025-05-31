@@ -10,15 +10,20 @@ const Check_auth = ({children , protectedRoute}) => {
 
     useEffect (()=>{
         const token = localStorage.getItem("token")
+        console.log(token)
 
-        if( protectedRoute ) {
+        if( !protectedRoute ) {
             if( !token ) {
-                navigate('/login')
+                console.log("idhar bhi ara hai")
+                navigate('/signup')
             }
             else {
-                setLoading(()=> !loading)
+                console.log("idhar ara hai")
+                navigate('/')
+                setLoading(false)
             }
         } else {
+            console.log("idhar bhi ara hai hehehe")
             if(token){
                 navigate('/')
             } else {

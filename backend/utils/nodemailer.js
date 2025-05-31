@@ -26,7 +26,7 @@ export const sendMail = async (to, subject, text) => {
       to,
       subject,
       text, // plain‑text body
-      // html: "<b>Hello world?</b>", // HTML body
+      html: "<b>mail from inngest workflow?</b>", // HTML body
     });
 
     console.log("Message sent:", info.messageId);

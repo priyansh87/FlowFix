@@ -6,7 +6,8 @@ import {inngest} from "../inngest/client.js"
 export const signup = async (req , res ) => {
     try {
         const { email , password , skills=[]} = req.body ; 
-        const hashedPassword = bcrypt.hash(password , 10 ) ; 
+        const hashedPassword = await bcrypt.hash(password , 10 ) ; 
+        console.log(hashedPassword)
         const user = await User.create({email , password : hashedPassword , skills})
 
         // Fire the inngest event : 
@@ -25,7 +26,7 @@ export const signup = async (req , res ) => {
 
 
     } catch (error) {
-        res.status|(500).json({error : "Signup failed" , details : error.message})
+        res.status(500).json({error : "Signup failed" , details : error.message})
         console.log("erro from signup controller " , error)
     }
 }

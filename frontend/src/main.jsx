@@ -1,14 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
+
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
 import Check_auth from './components/check_auth.jsx'
-import Login from './pages/login.jsx'
 import Tickets from './pages/tickets.jsx'
-import TicketDetailPage from './pages/ticket.jsx'
-import Admin from './pages/admin.jsx'
 import SignupPage from './pages/signup.jsx'
+import LoginPage from './pages/login.jsx'
+import AdminPanel from './pages/admin.jsx'
+import TicketDetailsPage from './pages/ticket.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -28,7 +28,7 @@ createRoot(document.getElementById('root')).render(
           path='/tickets/:id'
           element={
             <Check_auth protected={true}>
-                <TicketDetailPage/>
+                <TicketDetailsPage/>
             </Check_auth>
           }
         />
@@ -37,7 +37,7 @@ createRoot(document.getElementById('root')).render(
           path='/login'
           element={
             <Check_auth protected={false}>
-                <Login/>
+                <LoginPage/>
             </Check_auth>
           }
         />
@@ -55,7 +55,7 @@ createRoot(document.getElementById('root')).render(
           path='/admin'
           element={
             <Check_auth protected={true}>
-                <Admin/>
+                <AdminPanel/>
             </Check_auth>
           }
         />
